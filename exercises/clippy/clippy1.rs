@@ -11,7 +11,7 @@
 
 // I AM NOT DONE
 
-use std::f32;
+use std::f32
 
 fn main() {
     let pi = 3.14f32;

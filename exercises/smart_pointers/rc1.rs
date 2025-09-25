@@ -1,3 +1,17 @@
+// rc1.rs
+//
+// In this exercise, we want to express the concept of multiple owners via the
+// Rc<T> type. This is a model of our solar system - there is a Sun type and
+// multiple Planets. The Planets take ownership of the sun, indicating that they
+// revolve around the sun.
+//
+// Make this code compile by using the proper Rc primitives to express that the
+// sun has multiple owners.
+//
+// Execute `rustlings hint rc1` or use the `hint` watch subcommand for a hint.
+
+// I AM NOT DONE
+
 use std::rc::Rc;
 
 #[derive(Debug)]
@@ -45,17 +59,17 @@ fn main() {
     println!("reference count = {}", Rc::strong_count(&sun)); // 6 references
     jupiter.details();
 
-    // 修复：使用Rc::clone共享同一个sun实例
+    // 使用Rc::clone共享同一个太阳实例，而不是创建新的
     let saturn = Planet::Saturn(Rc::clone(&sun));
     println!("reference count = {}", Rc::strong_count(&sun)); // 7 references
     saturn.details();
 
-    // 修复：使用Rc::clone共享同一个sun实例
+    // 使用Rc::clone共享同一个太阳实例
     let uranus = Planet::Uranus(Rc::clone(&sun));
     println!("reference count = {}", Rc::strong_count(&sun)); // 8 references
     uranus.details();
 
-    // 修复：使用Rc::clone共享同一个sun实例
+    // 使用Rc::clone共享同一个太阳实例
     let neptune = Planet::Neptune(Rc::clone(&sun));
     println!("reference count = {}", Rc::strong_count(&sun)); // 9 references
     neptune.details();
@@ -64,20 +78,28 @@ fn main() {
 
     drop(neptune);
     println!("reference count = {}", Rc::strong_count(&sun)); // 8 references
+
     drop(uranus);
     println!("reference count = {}", Rc::strong_count(&sun)); // 7 references
+
     drop(saturn);
     println!("reference count = {}", Rc::strong_count(&sun)); // 6 references
+
     drop(jupiter);
     println!("reference count = {}", Rc::strong_count(&sun)); // 5 references
+
     drop(mars);
     println!("reference count = {}", Rc::strong_count(&sun)); // 4 references
-    
-    // 修复：依次drop剩余的Planet实例
+
+    // 释放earth的所有权，减少引用计数
     drop(earth);
     println!("reference count = {}", Rc::strong_count(&sun)); // 3 references
+
+    // 释放venus的所有权，减少引用计数
     drop(venus);
     println!("reference count = {}", Rc::strong_count(&sun)); // 2 references
+
+    // 释放mercury的所有权，减少引用计数
     drop(mercury);
     println!("reference count = {}", Rc::strong_count(&sun)); // 1 reference
 

@@ -18,16 +18,21 @@
 
 // I AM NOT DONE
 
-pub struct ReportCard {
-    pub grade: f32,
+use std::fmt;
+
+// 使用泛型使ReportCard支持任何可显示的等级类型
+pub struct ReportCard<G: fmt::Display> {
+    pub grade: G,
     pub student_name: String,
     pub student_age: u8,
 }
 
-impl ReportCard {
+impl<G: fmt::Display> ReportCard<G> {
     pub fn print(&self) -> String {
-        format!("{} ({}) - achieved a grade of {}",
-            &self.student_name, &self.student_age, &self.grade)
+        format!(
+            "{} ({}) - achieved a grade of {}",
+            &self.student_name, &self.student_age, &self.grade
+        )
     }
 }
 
@@ -50,9 +55,9 @@ mod tests {
 
     #[test]
     fn generate_alphabetic_report_card() {
-        // TODO: Make sure to change the grade here after you finish the exercise.
+        // 将等级改为"A+"以测试字母等级
         let report_card = ReportCard {
-            grade: 2.1,
+            grade: "A+",
             student_name: "Gary Plotter".to_string(),
             student_age: 11,
         };

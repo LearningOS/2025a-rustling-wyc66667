@@ -1,14 +1,9 @@
-// functions3.rs
-//
-// Execute `rustlings hint functions3` or use the `hint` watch subcommand for a
-// hint.
-
-
 fn main() {
     call_me(3);
 }
 
-fn call_me(num: u32) {
+// 将参数类型从u32改为usize，匹配Rust范围语法的类型要求
+fn call_me(num: usize) {
     for i in 0..num {
         println!("Ring! Call number {}", i + 1);
     }

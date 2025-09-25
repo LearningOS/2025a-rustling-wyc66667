@@ -5,8 +5,24 @@
 */
 // I AM NOT DONE
 
-fn sort<T>(array: &mut [T]){
+fn sort<T>(array: &mut [T])
 	//TODO
+where
+    T: Ord, // 填补：添加类型约束，要求元素可比较
+{
+    // 填补开始：冒泡排序实现
+    let n = array.len();
+    // 外层循环控制排序轮次
+    for i in 0..n {
+        // 内层循环进行相邻元素比较和交换
+        // 每轮结束后，最大的元素会"冒泡"到末尾，因此可以减少比较次数
+        for j in 0..n - i - 1 {
+            // 比较相邻元素，如果前一个大于后一个则交换
+            if array[j] > array[j + 1] {
+                array.swap(j, j + 1);
+            }
+        }
+    }
 }
 #[cfg(test)]
 mod tests {

@@ -1,31 +1,21 @@
-// as_ref_mut.rs
-//
-// AsRef and AsMut allow for cheap reference-to-reference conversions. Read more
-// about them at https://doc.rust-lang.org/std/convert/trait.AsRef.html and
-// https://doc.rust-lang.org/std/convert/trait.AsMut.html, respectively.
-//
-// Execute `rustlings hint as_ref_mut` or use the `hint` watch subcommand for a
-// hint.
-
-// I AM NOT DONE
-
 // Obtain the number of bytes (not characters) in the given argument.
-// TODO: Add the AsRef trait appropriately as a trait bound.
-fn byte_counter<T>(arg: T) -> usize {
+// 添加AsRef<str> trait约束，允许类型转换为&str
+fn byte_counter<T: AsRef<str>>(arg: T) -> usize {
     arg.as_ref().as_bytes().len()
 }
 
 // Obtain the number of characters (not bytes) in the given argument.
-// TODO: Add the AsRef trait appropriately as a trait bound.
-fn char_counter<T>(arg: T) -> usize {
+// 添加AsRef<str> trait约束，允许类型转换为&str
+fn char_counter<T: AsRef<str>>(arg: T) -> usize {
     arg.as_ref().chars().count()
 }
 
 // Squares a number using as_mut().
-// TODO: Add the appropriate trait bound.
-fn num_sq<T>(arg: &mut T) {
-    // TODO: Implement the function body.
-    ???
+// 添加AsMut<i32> trait约束，允许获取i32的可变引用
+fn num_sq<T: AsMut<i32>>(arg: &mut T) {
+    // 通过as_mut()获取i32的可变引用并平方
+    let value = arg.as_mut();
+    *value *= *value;
 }
 
 #[cfg(test)]
@@ -58,7 +48,7 @@ mod tests {
 
     #[test]
     fn mult_box() {
-        let mut num: Box<u32> = Box::new(3);
+        let mut num: Box<i32> = Box::new(3);
         num_sq(&mut num);
         assert_eq!(*num, 9);
     }

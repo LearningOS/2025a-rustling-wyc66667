@@ -1,14 +1,26 @@
-//! 为tests7设置必要的环境变量
+// tests8.rs
+//
+// This execrise shares `build.rs` with the previous exercise.
+// You need to add some code to `build.rs` to make both this exercise and
+// the previous one work.
+//
+// Execute `rustlings hint tests8` or use the `hint` watch subcommand for a
+// hint.
 
-fn main() {
-    // 获取当前Unix时间戳（秒）
-    let timestamp = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .unwrap()
-        .as_secs();
-    
-    // 向Cargo输出指令，设置TEST_FOO环境变量
-    // 格式为：cargo:rustc-env=VAR=VALUE
-    println!("cargo:rustc-env=TEST_FOO={}", timestamp);
+// I AM NOT DONE
+
+fn main() {}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_success() {
+        #[cfg(feature = "pass")]
+        return;
+
+        panic!("no cfg set");
+    }
 }
-    
+

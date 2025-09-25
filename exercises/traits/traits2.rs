@@ -15,6 +15,17 @@ trait AppendBar {
 }
 
 // TODO: Implement trait `AppendBar` for a vector of strings.
+// 为字符串向量（Vec<String>）实现 AppendBar trait
+impl AppendBar for Vec<String> {
+    fn append_bar(self) -> Self {
+        // 将接收的不可变向量转为可变向量（因要修改内容）
+        let mut mutable_vec = self;
+        // 向向量末尾追加 "Bar"（需转为 String 类型以匹配向量元素类型）
+        mutable_vec.push(String::from("Bar"));
+        // 返回修改后的向量，满足 trait 方法“接收 self 并返回 Self”的签名
+        mutable_vec
+    }
+}
 
 #[cfg(test)]
 mod tests {

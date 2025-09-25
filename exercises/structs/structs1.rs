@@ -1,28 +1,57 @@
-// strings4.rs
-// Ok, here are a bunch of values-- some are `String`s, some are `&str`s. Your
-// task is to call one of these two functions on each value depending on what
-// you think each value is. That is, add either `string_slice` or `string`
-// before the parentheses on each line. If you're right, it will compile!
-// No hints this time!
+// structs1.rs
+//
+// Address all the TODOs to make the tests pass!
+//
+// Execute `rustlings hint structs1` or use the `hint` watch subcommand for a
+// hint.
+
 // I AM NOT DONE
 
-fn string_slice(arg: &str) {
-    println!("{}", arg);
+struct ColorClassicStruct {
+    red: u8,
+    green: u8,
+    blue: u8,
 }
 
-fn string(arg: String) {
-    println!("{}", arg);
-}
+struct ColorTupleStruct(u8, u8, u8);
 
-fn main() {
-    string_slice("blue");
-    string("red".to_string());
-    string(String::from("hi"));
-    string("rust is fun!".to_owned());
-    string("nice weather".into());
-    string(format!("Interpolation {}", "Station"));
-    string_slice(&String::from("abc")[0..1]);
-    string_slice(" hello there ".trim());
-    string("Happy Monday!".to_string().replace("Mon", "Tues"));
-    string("mY sHiFt KeY iS sTiCkY".to_lowercase());
+#[derive(Debug)]
+struct UnitLikeStruct;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn classic_c_structs() {
+        // 实例化经典C风格结构体
+        let green = ColorClassicStruct {
+            red: 0,
+            green: 255,
+            blue: 0,
+        };
+
+        assert_eq!(green.red, 0);
+        assert_eq!(green.green, 255);
+        assert_eq!(green.blue, 0);
+    }
+
+    #[test]
+    fn tuple_structs() {
+        // 实例化元组结构体
+        let green = ColorTupleStruct(0, 255, 0);
+
+        assert_eq!(green.0, 0);
+        assert_eq!(green.1, 255);
+        assert_eq!(green.2, 0);
+    }
+
+    #[test]
+    fn unit_structs() {
+        // 实例化类单元结构体
+        let unit_like_struct = UnitLikeStruct;
+        let message = format!("{:?}s are fun!", unit_like_struct);
+
+        assert_eq!(message, "UnitLikeStructs are fun!");
+    }
 }

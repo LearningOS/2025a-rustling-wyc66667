@@ -1,9 +1,19 @@
+// strings1.rs
+//
+// Make me compile without changing the function signature!
+//
+// Execute `rustlings hint strings1` or use the `hint` watch subcommand for a
+// hint.
+
+// I AM NOT DONE
+
 fn main() {
     let answer = current_favorite_color();
     println!("My current favorite color is {}", answer);
 }
 
 fn current_favorite_color() -> String {
-    // 将字符串字面量转换为String类型
     "blue".to_string()
 }
+
+// I added the `.to_string()` method to convert the string literal "blue" to a String object.

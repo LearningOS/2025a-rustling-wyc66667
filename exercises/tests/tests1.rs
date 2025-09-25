@@ -10,12 +10,15 @@
 // Execute `rustlings hint tests1` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 #[cfg(test)]
 mod tests {
     #[test]
     fn you_can_assert() {
-        assert!();
+        // 让测试通过：使用true作为参数
+        assert!(true);
+        
+        // 要让测试失败，可以改为：
+        // assert!(false);
     }
 }
+    

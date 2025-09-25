@@ -1,10 +1,3 @@
-// options2.rs
-//
-// Execute `rustlings hint options2` or use the `hint` watch subcommand for a
-// hint.
-
-// I AM NOT DONE
-
 #[cfg(test)]
 mod tests {
     #[test]
@@ -12,8 +5,8 @@ mod tests {
         let target = "rustlings";
         let optional_target = Some(target);
 
-        // TODO: Make this an if let statement whose value is "Some" type
-        word = optional_target {
+        // 使用if let匹配Some模式并提取值
+        if let Some(word) = optional_target {
             assert_eq!(word, target);
         }
     }
@@ -21,18 +14,14 @@ mod tests {
     #[test]
     fn layered_option() {
         let range = 10;
-        let mut optional_integers: Vec<Option<i8>> = vec![None];
-
+        let mut optional_integers: Vec<Option<i32>> = vec![None];
         for i in 1..(range + 1) {
             optional_integers.push(Some(i));
         }
 
         let mut cursor = range;
-
-        // TODO: make this a while let statement - remember that vector.pop also
-        // adds another layer of Option<T>. You can stack `Option<T>`s into
-        // while let and if let.
-        integer = optional_integers.pop() {
+        // 使用while let匹配嵌套的Some模式（vector.pop()返回Option<Option<i32>>）
+        while let Some(Some(integer)) = optional_integers.pop() {
             assert_eq!(integer, cursor);
             cursor -= 1;
         }

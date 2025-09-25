@@ -1,17 +1,11 @@
-// modules1.rs
-//
-// Execute `rustlings hint modules1` or use the `hint` watch subcommand for a
-// hint.
-
-// I AM NOT DONE
-
 mod sausage_factory {
     // Don't let anybody outside of this module see this!
     fn get_secret_recipe() -> String {
         String::from("Ginger")
     }
 
-    fn make_sausage() {
+    // 使用pub关键字导出函数，使其在模块外可见
+    pub fn make_sausage() {
         get_secret_recipe();
         println!("sausage!");
     }

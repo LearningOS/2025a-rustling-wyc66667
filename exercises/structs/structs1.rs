@@ -1,51 +1,28 @@
-// structs1.rs
-//
-// Address all the TODOs to make the tests pass!
-//
-// Execute `rustlings hint structs1` or use the `hint` watch subcommand for a
-// hint.
-
+// strings4.rs
+// Ok, here are a bunch of values-- some are `String`s, some are `&str`s. Your
+// task is to call one of these two functions on each value depending on what
+// you think each value is. That is, add either `string_slice` or `string`
+// before the parentheses on each line. If you're right, it will compile!
+// No hints this time!
 // I AM NOT DONE
 
-struct ColorClassicStruct {
-    // TODO: Something goes here
+fn string_slice(arg: &str) {
+    println!("{}", arg);
 }
 
-struct ColorTupleStruct(/* TODO: Something goes here */);
+fn string(arg: String) {
+    println!("{}", arg);
+}
 
-#[derive(Debug)]
-struct UnitLikeStruct;
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn classic_c_structs() {
-        // TODO: Instantiate a classic c struct!
-        // let green =
-
-        assert_eq!(green.red, 0);
-        assert_eq!(green.green, 255);
-        assert_eq!(green.blue, 0);
-    }
-
-    #[test]
-    fn tuple_structs() {
-        // TODO: Instantiate a tuple struct!
-        // let green =
-
-        assert_eq!(green.0, 0);
-        assert_eq!(green.1, 255);
-        assert_eq!(green.2, 0);
-    }
-
-    #[test]
-    fn unit_structs() {
-        // TODO: Instantiate a unit-like struct!
-        // let unit_like_struct =
-        let message = format!("{:?}s are fun!", unit_like_struct);
-
-        assert_eq!(message, "UnitLikeStructs are fun!");
-    }
+fn main() {
+    string_slice("blue");
+    string("red".to_string());
+    string(String::from("hi"));
+    string("rust is fun!".to_owned());
+    string("nice weather".into());
+    string(format!("Interpolation {}", "Station"));
+    string_slice(&String::from("abc")[0..1]);
+    string_slice(" hello there ".trim());
+    string("Happy Monday!".to_string().replace("Mon", "Tues"));
+    string("mY sHiFt KeY iS sTiCkY".to_lowercase());
 }

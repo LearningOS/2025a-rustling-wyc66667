@@ -1,21 +1,16 @@
-// lifetimes3.rs
-//
-// Lifetimes are also needed when structs hold references.
-//
-// Execute `rustlings hint lifetimes3` or use the `hint` watch subcommand for a
-// hint.
-
-// I AM NOT DONE
-
-struct Book {
-    author: &str,
-    title: &str,
+// 为结构体添加生命周期参数以明确引用的生命周期
+struct Book<'a> {
+    author: &'a str,
+    title: &'a str,
 }
 
 fn main() {
     let name = String::from("Jill Smith");
     let title = String::from("Fish Flying");
-    let book = Book { author: &name, title: &title };
-
+    // 创建Book实例，其生命周期受限于name和title的生命周期
+    let book = Book {
+        author: &name,
+        title: &title,
+    };
     println!("{} by {}", book.title, book.author);
 }

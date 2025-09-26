@@ -1,6 +1,19 @@
+// errors6.rs
+//
+// Using catch-all error types like `Box<dyn error::Error>` isn't recommended
+// for library code, where callers might want to make decisions based on the
+// error content, instead of printing it out or propagating it further. Here, we
+// define a custom error type to make it possible for callers to decide what to
+// do next when our function returns an error.
+//
+// Execute `rustlings hint errors6` or use the `hint` watch subcommand for a
+// hint.
+
+// I AM NOT DONE
+
 use std::num::ParseIntError;
 
-// 自定义错误类型，统一处理解析和创建过程中的错误
+// This is a custom error type that we will be using in `parse_pos_nonzero()`.
 #[derive(PartialEq, Debug)]
 enum ParsePosNonzeroError {
     Creation(CreationError),
@@ -8,25 +21,25 @@ enum ParsePosNonzeroError {
 }
 
 impl ParsePosNonzeroError {
-    // 从CreationError转换
     fn from_creation(err: CreationError) -> ParsePosNonzeroError {
         ParsePosNonzeroError::Creation(err)
     }
     
-    // 从ParseIntError转换
+    // 添加从ParseIntError转换的函数
     fn from_parseint(err: ParseIntError) -> ParsePosNonzeroError {
         ParsePosNonzeroError::ParseInt(err)
     }
 }
 
 fn parse_pos_nonzero(s: &str) -> Result<PositiveNonzeroInteger, ParsePosNonzeroError> {
-    // 使用map_err将ParseIntError转换为自定义错误类型
+    // 解析字符串为i64，将错误转换为ParsePosNonzeroError::ParseInt
     let x: i64 = s.parse().map_err(ParsePosNonzeroError::from_parseint)?;
-    // 将CreationError转换为自定义错误类型
+    // 转换创建PositiveNonzeroInteger时的错误
     PositiveNonzeroInteger::new(x).map_err(ParsePosNonzeroError::from_creation)
 }
 
-// 以下代码保持不变
+// Don't change anything below this line.
+
 #[derive(PartialEq, Debug)]
 struct PositiveNonzeroInteger(u64);
 
@@ -52,6 +65,7 @@ mod test {
 
     #[test]
     fn test_parse_error() {
+        // We can't construct a ParseIntError, so we have to pattern match.
         assert!(matches!(
             parse_pos_nonzero("not a number"),
             Err(ParsePosNonzeroError::ParseInt(_))
@@ -76,7 +90,8 @@ mod test {
 
     #[test]
     fn test_positive() {
-        let x = PositiveNonzeroInteger::new(42).unwrap();
-        assert_eq!(parse_pos_nonzero("42"), Ok(x));
+        let x = PositiveNonzeroInteger::new(42);
+        assert!(x.is_ok());
+        assert_eq!(parse_pos_nonzero("42"), Ok(x.unwrap()));
     }
 }

@@ -1,11 +1,17 @@
-// 将宏定义移至main函数之前，确保宏在使用前被定义
+// macros2.rs
+//
+// Execute `rustlings hint macros2` or use the `hint` watch subcommand for a
+// hint.
+
+// I AM NOT DONE
+
+// 宏定义必须放在调用之前
 macro_rules! my_macro {
     () => {
         println!("Check out my macro!");
     };
 }
 
-// 添加main函数作为程序入口点
 fn main() {
-    my_macro!(); // 调用宏，消除未使用警告
+    my_macro!();
 }

@@ -1,3 +1,10 @@
+// errors4.rs
+//
+// Execute `rustlings hint errors4` or use the `hint` watch subcommand for a
+// hint.
+
+// I AM NOT DONE
+
 #[derive(PartialEq, Debug)]
 struct PositiveNonzeroInteger(u64);
 
@@ -8,34 +15,27 @@ enum CreationError {
 }
 
 impl PositiveNonzeroInteger {
-    fn new(value: i64) -> Result<Self, CreationError> {
-        // 首先检查输入是否为负数
+    fn new(value: i64) -> Result<PositiveNonzeroInteger, CreationError> {
+        // 检查值是否为负数
         if value < 0 {
             return Err(CreationError::Negative);
         }
-        // 然后检查输入是否为零
+        // 检查值是否为零
         if value == 0 {
             return Err(CreationError::Zero);
         }
-        // 只有正数才进行转换并返回Ok
+        // 对于正数值，安全转换为u64并返回
         Ok(PositiveNonzeroInteger(value as u64))
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_creation() {
-        // 测试正数情况
-        assert!(PositiveNonzeroInteger::new(10).is_ok());
-        // 测试负数情况
-        assert_eq!(
-            Err(CreationError::Negative),
-            PositiveNonzeroInteger::new(-10)
-        );
-        // 测试零的情况
-        assert_eq!(Err(CreationError::Zero), PositiveNonzeroInteger::new(0));
-    }
+#[test]
+fn test_creation() {
+    assert!(PositiveNonzeroInteger::new(10).is_ok());
+    assert_eq!(
+        Err(CreationError::Negative),
+        PositiveNonzeroInteger::new(-10)
+    );
+    assert_eq!(Err(CreationError::Zero), PositiveNonzeroInteger::new(0));
 }
+

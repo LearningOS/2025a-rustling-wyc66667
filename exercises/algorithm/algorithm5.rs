@@ -1,62 +1,63 @@
+/*
+	bfs
+	This problem requires you to implement a basic BFS algorithm
+*/
+
+//I AM NOT DONE
 use std::collections::VecDeque;
 
-// 定义图结构
+// Define a graph
 struct Graph {
-    adj: Vec<Vec<usize>>,
+    adj: Vec<Vec<usize>>, 
 }
 
 impl Graph {
-    // 创建具有n个顶点的新图
+    // Create a new graph with n vertices
     fn new(n: usize) -> Self {
-        Graph { adj: vec![vec![]; n] }
-    }
-
-    // 向图中添加边（无向图）
-    fn add_edge(&mut self, src: usize, dest: usize) {
-        self.adj[src].push(dest);
-        self.adj[dest].push(src);
-    }
-
-    // 执行广度优先搜索，返回访问节点的顺序
-    fn bfs_with_return(&self, start: usize) -> Vec<usize> {
-        // 检查起始节点是否有效
-        if start >= self.adj.len() {
-            return vec![];
+        Graph {
+            adj: vec![vec![]; n],
         }
+    }
 
-        // 初始化访问标记数组
+    // Add an edge to the graph
+    fn add_edge(&mut self, src: usize, dest: usize) {
+        self.adj[src].push(dest); 
+        self.adj[dest].push(src); 
+    }
+
+    // Perform a breadth-first search on the graph, return the order of visited nodes
+    fn bfs_with_return(&self, start: usize) -> Vec<usize> {
+        
+		//TODO
+        // 填补开始：BFS算法实现
+        // 1. 初始化访问标记数组，记录节点是否已被访问
         let mut visited = vec![false; self.adj.len()];
-        // 初始化队列并加入起始节点
+        // 2. 初始化队列，用于BFS的层级遍历
         let mut queue = VecDeque::new();
-        // 初始化访问顺序向量
-        let mut visit_order = Vec::new();
+        // 3. 初始化访问顺序记录向量
+        let mut visit_order = vec![];
 
-        // 标记起始节点为已访问并加入队列
+        // 4. 标记起始节点为已访问，加入队列和访问顺序
         visited[start] = true;
         queue.push_back(start);
+        visit_order.push(start);
 
-        // 当队列不为空时继续搜索
+        // 5. 当队列不为空时，继续遍历
         while let Some(node) = queue.pop_front() {
-            // 将当前节点加入访问顺序
-            visit_order.push(node);
-
-            // 获取当前节点的所有邻居并排序（确保访问顺序一致）
-            let mut neighbors = self.adj[node].clone();
-            neighbors.sort_unstable();  // 排序邻居以保证一致的访问顺序
-
-            // 遍历所有邻居
-            for &neighbor in &neighbors {
+            // 6. 遍历当前节点的所有邻接节点
+            for &neighbor in &self.adj[node] {
+                // 7. 如果邻接节点未被访问，则标记为已访问并加入队列和访问顺序
                 if !visited[neighbor] {
-                    // 标记为已访问并加入队列
                     visited[neighbor] = true;
                     queue.push_back(neighbor);
+                    visit_order.push(neighbor);
                 }
             }
         }
-
         visit_order
     }
 }
+
 
 #[cfg(test)]
 mod tests {
@@ -72,6 +73,7 @@ mod tests {
         graph.add_edge(1, 4);
         graph.add_edge(2, 3);
         graph.add_edge(3, 4);
+
         let visited_order = graph.bfs_with_return(0);
         assert_eq!(visited_order, vec![0, 1, 4, 2, 3]);
     }
@@ -81,6 +83,7 @@ mod tests {
         let mut graph = Graph::new(3);
         graph.add_edge(0, 1);
         graph.add_edge(1, 2);
+
         let visited_order = graph.bfs_with_return(2);
         assert_eq!(visited_order, vec![2, 1, 0]);
     }
@@ -91,6 +94,7 @@ mod tests {
         graph.add_edge(0, 1);
         graph.add_edge(1, 2);
         graph.add_edge(2, 0);
+
         let visited_order = graph.bfs_with_return(0);
         assert_eq!(visited_order, vec![0, 1, 2]);
     }
@@ -98,7 +102,9 @@ mod tests {
     #[test]
     fn test_bfs_single_node() {
         let mut graph = Graph::new(1);
+
         let visited_order = graph.bfs_with_return(0);
         assert_eq!(visited_order, vec![0]);
     }
 }
+

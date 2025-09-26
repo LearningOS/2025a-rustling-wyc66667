@@ -1,4 +1,14 @@
+// enums3.rs
+//
+// Address all the TODOs to make the tests pass!
+//
+// Execute `rustlings hint enums3` or use the `hint` watch subcommand for a
+// hint.
+
+// I AM NOT DONE
+
 enum Message {
+    // 实现与使用场景匹配的消息变体类型
     ChangeColor(u8, u8, u8),
     Echo(String),
     Move(Point),
@@ -26,15 +36,14 @@ impl State {
         self.quit = true;
     }
 
-    fn echo(&mut self, s: String) {
-        self.message = s
-    }
+    fn echo(&mut self, s: String) { self.message = s }
 
     fn move_position(&mut self, p: Point) {
         self.position = p;
     }
 
     fn process(&mut self, message: Message) {
+        // 使用match表达式处理不同的消息变体
         match message {
             Message::ChangeColor(r, g, b) => self.change_color((r, g, b)),
             Message::Echo(s) => self.echo(s),
@@ -56,7 +65,6 @@ mod tests {
             color: (0, 0, 0),
             message: "hello world".to_string(),
         };
-
         state.process(Message::ChangeColor(255, 0, 255));
         state.process(Message::Echo(String::from("hello world")));
         state.process(Message::Move(Point { x: 10, y: 15 }));

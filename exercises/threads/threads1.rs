@@ -26,8 +26,8 @@ fn main() {
 
     let mut results: Vec<u128> = vec![];
     for handle in handles {
-        // 使用 join() 方法等待线程完成并获取结果
-        // join() 返回 Result<T, Box<dyn Error>>，这里我们unwrap()获取结果
+        // 使用join()等待线程完成并获取返回值
+        // join()返回Result<T, Box<dyn Error>>，unwrap()提取成功的结果
         let result = handle.join().unwrap();
         results.push(result);
     }
@@ -41,3 +41,4 @@ fn main() {
         println!("thread {} took {}ms", i, result);
     }
 }
+

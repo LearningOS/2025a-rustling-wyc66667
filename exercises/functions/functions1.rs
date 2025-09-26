@@ -1,11 +1,14 @@
+// functions1.rs
+//
+// Execute `rustlings hint functions1` or use the `hint` watch subcommand for a
+// hint.
+
 fn main() {
-    // 调用call_me函数三次
-    call_me();
-    call_me();
     call_me();
 }
 
-// 实现call_me函数，添加打印功能
 fn call_me() {
-    println!("called");
+    // 添加函数体内容，这里使用println!宏作为示例
+    println!("Called!");
 }
+    

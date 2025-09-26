@@ -1,5 +1,21 @@
+// iterators4.rs
+//
+// Execute `rustlings hint iterators4` or use the `hint` watch subcommand for a
+// hint.
+
+// I AM NOT DONE
+
 pub fn factorial(num: u64) -> u64 {
-    // 使用范围迭代器和product方法计算阶乘
+    // Complete this function to return the factorial of num
+    // Do not use:
+    // - return
+    // Try not to use:
+    // - imperative style loops (for, while)
+    // - additional variables
+    // For an extra challenge, don't use:
+    // - recursion
+    // Execute `rustlings hint iterators4` for hints.
+    // 使用迭代器从1到num（包含num）生成序列，然后计算乘积
     (1..=num).product()
 }
 
@@ -16,7 +32,6 @@ mod tests {
     fn factorial_of_1() {
         assert_eq!(1, factorial(1));
     }
-
     #[test]
     fn factorial_of_2() {
         assert_eq!(2, factorial(2));
@@ -27,4 +42,3 @@ mod tests {
         assert_eq!(24, factorial(4));
     }
 }
-

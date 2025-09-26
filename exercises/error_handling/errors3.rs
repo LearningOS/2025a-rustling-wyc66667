@@ -1,11 +1,22 @@
+// errors3.rs
+//
+// This is a program that is trying to use a completed version of the
+// `total_cost` function from the previous exercise. It's not working though!
+// Why not? What should we do to fix it?
+//
+// Execute `rustlings hint errors3` or use the `hint` watch subcommand for a
+// hint.
+
+// I AM NOT DONE
+
 use std::num::ParseIntError;
 
-// 修复main函数返回类型，使其能够传播错误
 fn main() -> Result<(), ParseIntError> {
     let mut tokens = 100;
     let pretend_user_input = "8";
-    let cost = total_cost(pretend_user_input)?;  // 现在可以正确使用?操作符
-    
+
+    let cost = total_cost(pretend_user_input)?;
+
     if cost > tokens {
         println!("You can't afford that many!");
     } else {
@@ -13,13 +24,13 @@ fn main() -> Result<(), ParseIntError> {
         println!("You now have {} tokens.", tokens);
     }
     
-    Ok(())  // 必须返回Result类型的值
+    Ok(())
 }
 
-// 修复total_cost函数的返回类型，并添加类型标注
 pub fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {
     let processing_fee = 1;
     let cost_per_item = 5;
-    let qty = item_quantity.parse::<i32>()?;  // 添加parse的类型标注
+    let qty = item_quantity.parse::<i32>()?;
+
     Ok(qty * cost_per_item + processing_fee)
 }

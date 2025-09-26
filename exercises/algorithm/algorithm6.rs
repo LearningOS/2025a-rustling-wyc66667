@@ -1,48 +1,45 @@
+/*
+    dfs
+    This problem requires you to implement a basic DFS traversal
+*/
+
 use std::collections::HashSet;
 
 struct Graph {
-    adj: Vec<Vec<usize>>,
+    adj: Vec<Vec<usize>>, 
 }
 
 impl Graph {
     fn new(n: usize) -> Self {
-        Graph { adj: vec![vec![]; n] }
+        Graph {
+            adj: vec![vec![]; n],
+        }
     }
 
     fn add_edge(&mut self, src: usize, dest: usize) {
         self.adj[src].push(dest);
-        self.adj[dest].push(src);
+        self.adj[dest].push(src); 
     }
 
-    // DFS辅助函数，执行实际的深度优先搜索
     fn dfs_util(&self, v: usize, visited: &mut HashSet<usize>, visit_order: &mut Vec<usize>) {
         // 将当前节点标记为已访问
         visited.insert(v);
-        // 将当前节点加入访问顺序
+        // 记录访问顺序
         visit_order.push(v);
-
-        // 获取当前节点的所有邻居并排序，确保一致的访问顺序
-        let mut neighbors = self.adj[v].clone();
-        neighbors.sort_unstable();
-
-        // 递归访问所有未访问的邻居
-        for &neighbor in &neighbors {
+        
+        // 递归访问所有未被访问的邻接节点
+        for &neighbor in &self.adj[v] {
             if !visited.contains(&neighbor) {
                 self.dfs_util(neighbor, visited, visit_order);
             }
         }
     }
 
-    // 执行深度优先搜索，返回访问节点的顺序
+    // 执行深度优先搜索，返回节点的访问顺序
     fn dfs(&self, start: usize) -> Vec<usize> {
         let mut visited = HashSet::new();
-        let mut visit_order = Vec::new();
-        
-        // 检查起始节点是否有效
-        if start < self.adj.len() {
-            self.dfs_util(start, &mut visited, &mut visit_order);
-        }
-        
+        let mut visit_order = Vec::new(); 
+        self.dfs_util(start, &mut visited, &mut visit_order);
         visit_order
     }
 }
@@ -56,6 +53,7 @@ mod tests {
         let mut graph = Graph::new(3);
         graph.add_edge(0, 1);
         graph.add_edge(1, 2);
+
         let visit_order = graph.dfs(0);
         assert_eq!(visit_order, vec![0, 1, 2]);
     }
@@ -67,7 +65,8 @@ mod tests {
         graph.add_edge(0, 2);
         graph.add_edge(1, 2);
         graph.add_edge(2, 3);
-        graph.add_edge(3, 3);  // 自环
+        graph.add_edge(3, 3); 
+
         let visit_order = graph.dfs(0);
         assert_eq!(visit_order, vec![0, 1, 2, 3]);
     }
@@ -77,10 +76,11 @@ mod tests {
         let mut graph = Graph::new(5);
         graph.add_edge(0, 1);
         graph.add_edge(0, 2);
-        graph.add_edge(3, 4);
+        graph.add_edge(3, 4); 
+
         let visit_order = graph.dfs(0);
-        assert_eq!(visit_order, vec![0, 1, 2]);
+        assert_eq!(visit_order, vec![0, 1, 2]); 
         let visit_order_disconnected = graph.dfs(3);
-        assert_eq!(visit_order_disconnected, vec![3, 4]);
+        assert_eq!(visit_order_disconnected, vec![3, 4]); 
     }
 }
